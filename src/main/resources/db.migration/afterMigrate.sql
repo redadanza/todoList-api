@@ -1,2 +1,1 @@
-delete from employee;
-delete from company;
+delete from todoItem;
