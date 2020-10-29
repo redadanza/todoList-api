@@ -7,8 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Arrays.asList;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class TodoServiceTest {
@@ -30,11 +32,22 @@ public class TodoServiceTest {
     @Test
     public void should_create_todoItem_when_create_given_todoItem_request(){
         when(repository.save(todoItem)).thenReturn(todoItem);
-        TodoService employeeService = new TodoService(repository);
+        TodoService todoService = new TodoService(repository);
         todoItem.setId(1);
         //WHEN
-        TodoItem actual = employeeService.create(todoItem);
+        TodoItem actual = todoService.create(todoItem);
         //THEN
         Assertions.assertEquals(1, actual.getId());
+    }
+    @Test
+    public void should_update_employee_when_update_given_todoITem_request(){
+        //GIVEN
+        when(repository.findById(1)).thenReturn(Optional.ofNullable(todoItem));
+        //WHEN
+        TodoService todoService = new TodoService(repository);
+        todoService.update(1,todoItem);
+
+        //THEN
+        verify(repository).save(todoItem);
     }
 }
