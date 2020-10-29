@@ -50,9 +50,9 @@ public class TodoIntegrationTest {
                 .content(todoItemAsJson))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNumber())
-                .andExpect(jsonPath("$.todoText").value("todo item1"))
+                .andExpect(jsonPath("$.todoText").value("todoText"))
                 .andExpect(jsonPath("$.done").isBoolean());
-        
+
     }
 
 

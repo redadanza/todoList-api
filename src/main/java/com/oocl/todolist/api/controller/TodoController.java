@@ -2,8 +2,10 @@ package com.oocl.todolist.api.controller;
 
 import com.oocl.todolist.api.mapper.TodoMapper;
 import com.oocl.todolist.api.model.TodoItem;
+import com.oocl.todolist.api.model.TodoItemRequest;
 import com.oocl.todolist.api.model.TodoItemResponse;
 import com.oocl.todolist.api.service.TodoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,5 +27,11 @@ public class TodoController {
         List<TodoItem> todoItems = todoService.getAll();
 
         return todoItems.stream().map(todoMapper::todoResponse).collect(Collectors.toList());
+    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public TodoItemResponse create(@RequestBody TodoItemRequest todoItemRequest){
+        TodoItem createdTodoItem = todoService.create(todoMapper.toEntity(todoItemRequest));
+        return todoMapper.todoResponse(createdTodoItem);
     }
 }
