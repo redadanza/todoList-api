@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class TodoMapper {
     public TodoItemResponse todoResponse(TodoItem todoItem){
         TodoItemResponse response = new TodoItemResponse();
-        BeanUtils.copyProperties(response, response);
+        BeanUtils.copyProperties(todoItem, response);
         return response;
     }
 
