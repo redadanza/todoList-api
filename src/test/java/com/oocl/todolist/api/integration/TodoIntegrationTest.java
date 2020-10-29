@@ -70,7 +70,7 @@ public class TodoIntegrationTest {
                 .content(todoItemAsJson))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber())
-                .andExpect(jsonPath("$.todoText").value("todoText"))
+                .andExpect(jsonPath("$.todoText").value("todo item1"))
                 .andExpect(jsonPath("$.done").value(true));
 
     }
