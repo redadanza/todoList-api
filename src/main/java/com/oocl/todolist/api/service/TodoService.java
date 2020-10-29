@@ -27,4 +27,8 @@ public class TodoService {
         todoItem.setId(id);
         return repository.save(todoItem);
     }
+
+    public void delete(Integer todoId) {
+        repository.deleteById(todoId);
+    }
 }
