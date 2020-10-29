@@ -3,6 +3,7 @@ package com.oocl.todolist.api.integration;
 import com.oocl.todolist.api.entity.TodoItem;
 import com.oocl.todolist.api.repository.TodoRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,7 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureMockMvc
 @Sql(scripts = "classpath:cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class TodoIntegrationTest {
-
+    TodoItem todoItem = new TodoItem("todo item1", false);
     @Autowired
     private TodoRepository todoRepository;
 
@@ -33,12 +34,16 @@ public class TodoIntegrationTest {
         todoRepository.deleteAll();
     }
 
-    @Test
-    public void should_return_todos_when_getAll() throws Exception {
+    @BeforeEach
+    void init() {
         //GIVEN
-        TodoItem todoItem = new TodoItem("todo item1", false);
         todoItem.setId(1);
         todoRepository.save(todoItem);
+    }
+
+
+    @Test
+    public void should_return_todos_when_getAll() throws Exception {
         //WHEN THEN
         mockMvc.perform(get("/todos"))
                 .andExpect(status().isOk())
@@ -67,14 +72,12 @@ public class TodoIntegrationTest {
 
     @Test
     public void should_update_todoItem_when_perform_put_given_todoItem_request() throws Exception {
-        TodoItem todoItem = new TodoItem("todo item1", false);
-        todoItem.setId(1);
-        todoRepository.save(todoItem);
 
         String todoItemAsJson = " {\n" +
                 "            \"todoText\": \"todo item1\",\n" +
                 "            \"done\": true\n" +
                 "            }";
+        //WHEN THEN
         Integer todoId = todoRepository.save(todoItem).getId();
         mockMvc.perform(put("/todos/{Id}", todoId)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -88,10 +91,8 @@ public class TodoIntegrationTest {
 
     @Test
     public void should_delete_todoItem_when_perform_delete_given_todoItem_request() throws Exception {
-        TodoItem todoItem = new TodoItem("todo item1", false);
-        todoItem.setId(1);
+        //WHEN THEN
         Integer todoId = todoRepository.save(todoItem).getId();
-
         List<TodoItem> todoItemList = todoRepository.findAll();
         mockMvc.perform(delete("/todos/{Id}", todoId))
                 .andExpect(status().isOk());
