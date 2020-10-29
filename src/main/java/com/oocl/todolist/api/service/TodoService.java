@@ -21,4 +21,10 @@ public class TodoService {
         todoItem.setDone(false);
         return repository.save(todoItem);
     }
+
+    public TodoItem update(Integer id, TodoItem todoItem) {
+        todoItem.setDone(todoItem.isDone());
+        todoItem.setId(id);
+        return repository.save(todoItem);
+    }
 }
