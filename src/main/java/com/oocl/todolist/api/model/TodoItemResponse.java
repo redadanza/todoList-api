@@ -1,28 +1,24 @@
 package com.oocl.todolist.api.model;
 
-import javax.persistence.*;
-
-@Entity
-public class TodoItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "todo_generator")
-    @SequenceGenerator(name = "todo_generator")
+public class TodoItemResponse {
     private Integer id;
     private String todoText;
     private boolean done;
 
-    public TodoItem(String todoText, boolean done) {
+    public TodoItemResponse() {
+
+    }
+    public TodoItemResponse(Integer id, String todoText, boolean done) {
+        this.id = id;
         this.todoText = todoText;
         this.done = done;
     }
-    public TodoItem() {
-    }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
