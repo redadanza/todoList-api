@@ -40,7 +40,7 @@ public class TodoServiceTest {
         Assertions.assertEquals(1, actual.getId());
     }
     @Test
-    public void should_update_employee_when_update_given_todoITem_request(){
+    public void should_update_todoITem_when_update_given_todoITem_request(){
         //GIVEN
         when(repository.findById(1)).thenReturn(Optional.ofNullable(todoItem));
         //WHEN
@@ -49,5 +49,15 @@ public class TodoServiceTest {
 
         //THEN
         verify(repository).save(todoItem);
+    }
+    @Test
+    public void should_delete_todoITem_when_delete_given_todoITem_request(){
+        //given
+        TodoService employeeService = new TodoService(repository);
+        // when
+        employeeService.delete(1);
+        //then
+        verify(repository).deleteById(1);
+
     }
 }
