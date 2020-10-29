@@ -1,6 +1,6 @@
 package com.oocl.todolist.api.service;
 
-import com.oocl.todolist.api.model.TodoItem;
+import com.oocl.todolist.api.entity.TodoItem;
 import com.oocl.todolist.api.repository.TodoRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

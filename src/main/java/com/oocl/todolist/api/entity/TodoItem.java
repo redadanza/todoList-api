@@ -1,4 +1,4 @@
-package com.oocl.todolist.api.model;
+package com.oocl.todolist.api.entity;
 
 import javax.persistence.*;
 
@@ -15,6 +15,7 @@ public class TodoItem {
         this.todoText = todoText;
         this.done = done;
     }
+
     public TodoItem() {
     }
 

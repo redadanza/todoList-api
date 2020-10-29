@@ -1,4 +1,4 @@
-package com.oocl.todolist.api.model;
+package com.oocl.todolist.api.dto;
 
 public class TodoItemRequest {
     private String todoText;

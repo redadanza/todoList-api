@@ -1,6 +1,6 @@
 package com.oocl.todolist.api.service;
 
-import com.oocl.todolist.api.model.TodoItem;
+import com.oocl.todolist.api.entity.TodoItem;
 import com.oocl.todolist.api.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +14,11 @@ public class TodoService {
         this.repository = repository;
     }
 
-    public List<TodoItem> getAll(){
+    public List<TodoItem> getAll() {
         return repository.findAll();
     }
-    public TodoItem create(TodoItem todoItem){
+
+    public TodoItem create(TodoItem todoItem) {
         todoItem.setDone(false);
         return repository.save(todoItem);
     }

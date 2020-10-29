@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class TodosConfiguration {
     @Bean
-    public WebMvcConfigurer configurer(){
+    public WebMvcConfigurer configurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {

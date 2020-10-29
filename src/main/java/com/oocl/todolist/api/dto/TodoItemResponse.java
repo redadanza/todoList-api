@@ -1,4 +1,4 @@
-package com.oocl.todolist.api.model;
+package com.oocl.todolist.api.dto;
 
 public class TodoItemResponse {
     private Integer id;
@@ -8,6 +8,7 @@ public class TodoItemResponse {
     public TodoItemResponse() {
 
     }
+
     public TodoItemResponse(Integer id, String todoText, boolean done) {
         this.id = id;
         this.todoText = todoText;
