@@ -45,7 +45,7 @@ public class TodoServiceTest {
         when(repository.findById(1)).thenReturn(Optional.ofNullable(todoItem));
         //WHEN
         TodoService todoService = new TodoService(repository);
-        todoService.update(1,todoItem);
+        todoService.update(1);
 
         //THEN
         verify(repository).save(todoItem);

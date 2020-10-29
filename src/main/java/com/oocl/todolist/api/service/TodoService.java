@@ -22,9 +22,9 @@ public class TodoService {
         return repository.save(todoItem);
     }
 
-    public TodoItem update(Integer id, TodoItem todoItem) {
-        todoItem.setDone(todoItem.isDone());
-        todoItem.setId(id);
+    public TodoItem update(Integer id) {
+        TodoItem todoItem = repository.findById(id).get();
+        todoItem.setDone(!todoItem.isDone());
         return repository.save(todoItem);
     }
 

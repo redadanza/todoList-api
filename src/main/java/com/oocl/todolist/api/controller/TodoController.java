@@ -35,10 +35,9 @@ public class TodoController {
         return todoMapper.todoResponse(createdTodoItem);
     }
     @PutMapping("/{id}")
-    public TodoItemResponse update(@PathVariable(required = true) Integer id,
-                                   @RequestBody(required = true) TodoItemRequest todoItemRequest){
+    public TodoItemResponse update(@PathVariable(required = true) Integer id){
 
-        return todoMapper.todoResponse(todoService.update(id, todoMapper.toEntity(todoItemRequest)));
+        return todoMapper.todoResponse(todoService.update(id));
     }
 
     @DeleteMapping("/{id}")
