@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @SpringBootTest
 @AutoConfigureMockMvc
-
+@Sql(scripts = "classpath:cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class TodoIntegrationTest {
 
     @Autowired
@@ -66,8 +67,8 @@ public class TodoIntegrationTest {
                 "            \"todoText\": \"todo item1\",\n" +
                 "            \"done\": true\n" +
                 "            }";
-
-        mockMvc.perform(put("/todos/1")
+        Integer todoId = todoRepository.save(todoItem).getId();
+        mockMvc.perform(put("/todos/{Id}",todoId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(todoItemAsJson))
                 .andExpect(status().isOk())
