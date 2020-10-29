@@ -15,7 +15,8 @@ public class TodoServiceTest {
 
     TodoRepository repository = Mockito.mock(TodoRepository.class);
     TodoItem todoItem = new TodoItem("todo item1", false);
-    List<TodoItem> expectedTodoItem = asList(new TodoItem());
+
+    List<TodoItem> expectedTodoItem = asList(todoItem);
     @Test
     public void should_return_todos_when_getAll_request(){
         //GIVEN
@@ -25,5 +26,15 @@ public class TodoServiceTest {
         List<TodoItem> actual = service.getAll();
         //THEN
         Assertions.assertEquals(1, actual.size());
+    }
+    @Test
+    public void should_create_todoItem_when_create_given_todoItem_request(){
+        when(repository.save(todoItem)).thenReturn(todoItem);
+        TodoService employeeService = new TodoService(repository);
+        todoItem.setId(1);
+        //WHEN
+        TodoItem actual = employeeService.create(todoItem);
+        //THEN
+        Assertions.assertEquals(1, actual.getId());
     }
 }
