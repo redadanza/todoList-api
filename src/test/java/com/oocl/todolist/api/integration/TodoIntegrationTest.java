@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -72,6 +74,18 @@ public class TodoIntegrationTest {
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.todoText").value("todo item1"))
                 .andExpect(jsonPath("$.done").value(true));
+
+    }
+
+    @Test
+    public void should_delete_todoItem_when_perform_delete_given_todoItem_request() throws Exception {
+        TodoItem todoItem = new TodoItem("todo item1", false);
+        todoItem.setId(1);
+        Integer todoId = todoRepository.save(todoItem).getId();
+
+        List<TodoItem> todoItemList = todoRepository.findAll();
+        mockMvc.perform(delete("/todos/{Id}",todoId))
+                .andExpect(status().isOk());
 
     }
 
