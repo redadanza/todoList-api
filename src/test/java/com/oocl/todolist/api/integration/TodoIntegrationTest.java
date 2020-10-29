@@ -54,6 +54,26 @@ public class TodoIntegrationTest {
                 .andExpect(jsonPath("$.done").isBoolean());
 
     }
+    @Test
+    public void should_update_todoItem_when_perform_put_given_todoItem_request() throws Exception {
+        TodoItem todoItem = new TodoItem("todo item1", false);
+        todoItem.setId(1);
+        todoRepository.save(todoItem);
+
+        String todoItemAsJson = " {\n" +
+                "            \"todoText\": \"todo item1\",\n" +
+                "            \"done\": true\n" +
+                "            }";
+
+        mockMvc.perform(put("/todos/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(todoItemAsJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.todoText").value("todoText"))
+                .andExpect(jsonPath("$.done").value(true));
+
+    }
 
 
 }
