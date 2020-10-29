@@ -29,7 +29,7 @@ public class TodoIntegrationTest {
     private MockMvc mockMvc;
 
     @AfterEach
-    private void tearDown(){
+    private void tearDown() {
         todoRepository.deleteAll();
     }
 
@@ -47,6 +47,7 @@ public class TodoIntegrationTest {
                 .andExpect(jsonPath("$[0].done").isBoolean());
 
     }
+
     @Test
     public void should_create_todoItem_when_perform_post_given_todoItem_request() throws Exception {
         String todoItemAsJson = " {\n" +
@@ -63,6 +64,7 @@ public class TodoIntegrationTest {
                 .andExpect(jsonPath("$.done").isBoolean());
 
     }
+
     @Test
     public void should_update_todoItem_when_perform_put_given_todoItem_request() throws Exception {
         TodoItem todoItem = new TodoItem("todo item1", false);
@@ -74,7 +76,7 @@ public class TodoIntegrationTest {
                 "            \"done\": true\n" +
                 "            }";
         Integer todoId = todoRepository.save(todoItem).getId();
-        mockMvc.perform(put("/todos/{Id}",todoId)
+        mockMvc.perform(put("/todos/{Id}", todoId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(todoItemAsJson))
                 .andExpect(status().isOk())
@@ -91,7 +93,7 @@ public class TodoIntegrationTest {
         Integer todoId = todoRepository.save(todoItem).getId();
 
         List<TodoItem> todoItemList = todoRepository.findAll();
-        mockMvc.perform(delete("/todos/{Id}",todoId))
+        mockMvc.perform(delete("/todos/{Id}", todoId))
                 .andExpect(status().isOk());
 
     }

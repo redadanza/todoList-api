@@ -19,8 +19,9 @@ public class TodoServiceTest {
     TodoItem todoItem = new TodoItem("todo item1", false);
 
     List<TodoItem> expectedTodoItem = asList(todoItem);
+
     @Test
-    public void should_return_todos_when_getAll_request(){
+    public void should_return_todos_when_getAll_request() {
         //GIVEN
         when(repository.findAll()).thenReturn(expectedTodoItem);
         TodoService service = new TodoService(repository);
@@ -29,8 +30,9 @@ public class TodoServiceTest {
         //THEN
         Assertions.assertEquals(1, actual.size());
     }
+
     @Test
-    public void should_create_todoItem_when_create_given_todoItem_request(){
+    public void should_create_todoItem_when_create_given_todoItem_request() {
         when(repository.save(todoItem)).thenReturn(todoItem);
         TodoService todoService = new TodoService(repository);
         todoItem.setId(1);
@@ -39,8 +41,9 @@ public class TodoServiceTest {
         //THEN
         Assertions.assertEquals(1, actual.getId());
     }
+
     @Test
-    public void should_update_todoITem_when_update_given_todoITem_request(){
+    public void should_update_todoITem_when_update_given_todoITem_request() {
         //GIVEN
         when(repository.findById(1)).thenReturn(Optional.ofNullable(todoItem));
         //WHEN
@@ -50,8 +53,9 @@ public class TodoServiceTest {
         //THEN
         verify(repository).save(todoItem);
     }
+
     @Test
-    public void should_delete_todoITem_when_delete_given_todoITem_request(){
+    public void should_delete_todoITem_when_delete_given_todoITem_request() {
         //given
         TodoService employeeService = new TodoService(repository);
         // when
